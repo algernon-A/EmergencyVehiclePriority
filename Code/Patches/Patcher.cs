@@ -13,8 +13,7 @@ namespace EmergencyVehiclePriority
         private const string harmonyID = "com.github.algernon-A.csl.emergencyvehiclepriority";
 
         // Flag.
-        internal static bool Patched => _patched;
-        private static bool _patched = false;
+        private static bool patched = false;
 
 
         /// <summary>
@@ -23,21 +22,21 @@ namespace EmergencyVehiclePriority
         public static void PatchAll()
         {
             // Don't do anything if already patched.
-            if (!_patched)
+            if (!patched)
             {
                 // Ensure Harmony is ready before patching.
                 if (HarmonyHelper.IsHarmonyInstalled)
                 {
-                    Debugging.Message("deploying Harmony patches");
+                    Logging.KeyMessage("deploying Harmony patches");
 
                     // Apply all annotated patches and update flag.
                     Harmony harmonyInstance = new Harmony(harmonyID);
                     harmonyInstance.PatchAll();
-                    _patched = true;
+                    patched = true;
                 }
                 else
                 {
-                    Debugging.Message("Harmony not ready");
+                    Logging.Error("Harmony not ready");
                 }
             }
         }
@@ -46,14 +45,14 @@ namespace EmergencyVehiclePriority
         public static void UnpatchAll()
         {
             // Only unapply if patches appplied.
-            if (_patched)
+            if (patched)
             {
-                Debugging.Message("reverting Harmony patches");
+                Logging.KeyMessage("reverting Harmony patches");
 
                 // Unapply patches, but only with our HarmonyID.
                 Harmony harmonyInstance = new Harmony(harmonyID);
                 harmonyInstance.UnpatchAll(harmonyID);
-                _patched = false;
+                patched = false;
             }
         }
     }

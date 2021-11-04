@@ -60,7 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\Debugging.cs" />
+    <Compile Include="Code\Utils\Logging.cs" />
     <Compile Include="Code\Mod.cs" />
     <Compile Include="Code\Patches\CarAI.cs" />
     <Compile Include="Code\Patches\Patcher.cs" />
